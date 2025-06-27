@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Qualidade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        .header-container {
+            padding: 15px 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .header-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .logo {
+            max-height: 40px;
+            width: auto;
+            margin-bottom: 10px;
+        }
+        .sistema-text {
+            color: #0000FF;
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .document-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            border-bottom: 1px solid #dee2e6;
+            padding-top: 10px;
+        }
+        .info-item {
+            padding: 5px 10px;
+            border-right: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+        .info-item:last-child {
+            border-right: none;
+        }
+        .title {
+            font-weight: bold;
+        }
+        .page-number {
+            text-align: right;
+            grid-column: span 4;
+        }
+        /* Versão desktop para dispositivos móveis (obrigando o layout desktop) */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding-bottom: 20px;
+            }
+            .logo {
+                max-height: 30px;
+                margin-bottom: 10px;
+            }
+            .sistema-text {
+                font-size: 14px;
+                text-align: center;
+                margin-top: 10px;
+            }
+            .document-info {
+                grid-template-columns: repeat(4, 1fr); /* Manter 4 colunas para desktop */
+            }
+            .info-item {
+                font-size: 12px;
+                padding: 8px;
+            }
+            .page-number {
+                grid-column: 1 / -1;
+                font-size: 12px;
+                text-align: left;
+            }
+            .table th, .table td {
+                font-size: 12px;
+            }
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+        <div class="header-container">
+            <div class="header-top">
+                <!-- Logo -->
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+                <div class="sistema-text">Sistema de Gestão de Qualidade</div>
+            </div>
+            <div class="document-info">
+                <div class="info-item">
+                    <div class="title">Título</div>
+                    <div>HISTÓRICO DE EQUIPAMENTO</div>
+                </div>
+                <div class="info-item">
+                    <div class="title">Identificação</div>
+                    <div>MM-05-AT-258</div>
+                </div>
+                <div class="info-item">
+                    <div class="title">Revisão</div>
+                    <div>01</div>
+                </div>
+                <div class="info-item">
+                    <div class="title">Aprovado em:</div>
+                    <div>11/07/2016</div>
+                </div>
+            </div>
+            <div class="document-info">
+                <div class="info-item page-number">Pág 1/2</div>
+            </div>
+        </div>
+        
+        <h3 class="h5">Dados do Equipamento</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nº Patrimônio</th>
+                        <th>Nome</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Fabricante</th>
+                        <th>Nº de Série</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ equipamento[1] }}</td>
+                        <td>{{ equipamento[2] }}</td>
+                        <td>{{ equipamento[3] }}</td>
+                        <td>{{ equipamento[4] }}</td>
+                        <td>{{ equipamento[5] }}</td>
+                        <td>{{ equipamento[6] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="h5">Histórico do Equipamento</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo de Serviço</th>
+                        <th>Responsável Execução</th>
+                        <th>Responsável Análise Crítica</th>
+                        <th>Data da Próxima Manutenção</th>
+                        <th>Local de Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in historico %}
+                    <tr>
+                        <td>{{ item[2] }}</td>
+                        <td>{{ item[3] }}</td>
+                        <td>{{ item[4] }}</td>
+                        <td>{{ item[5] }}</td>
+                        <td>{{ item[6] }}</td>
+                        <td>{{ item[7] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ url_for('listar_equipamentos') }}" class="btn btn-secondary">Voltar</a>
+            <a href="{{ url_for('adicionar_historico', equip_id=equipamento[0]) }}" class="btn btn-primary">Adicionar Novo Registro</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

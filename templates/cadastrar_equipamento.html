@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastrar Equipamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <h2 class="mb-4">Cadastrar Equipamento</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Número do Patrimônio</label>
+            <input type="text" name="patrimonio" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Modelo</label>
+            <input type="text" name="modelo" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Marca</label>
+            <input type="text" name="marca" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fabricante</label>
+            <input type="text" name="fabricante" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Número de Série</label>
+            <input type="text" name="numero_serie" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a href="/equipamentos" class="btn btn-secondary">Voltar</a>
+    </form>
+</body>
+</html>

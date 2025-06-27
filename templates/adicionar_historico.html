@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adicionar Histórico</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 600px;
+    }
+    .btn {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+  <div class="container bg-white p-4 rounded shadow-sm">
+    <h2 class="mb-4 text-center">Adicionar Histórico ao Equipamento ID {{ equip_id }}</h2>
+
+    <form method="POST">
+      <div class="mb-3">
+        <label for="data" class="form-label">Data</label>
+        <input type="text" class="form-control" id="data" name="data" placeholder="DD/MM/AAAA"
+               required pattern="\d{2}/\d{2}/\d{4}" inputmode="numeric" maxlength="10">
+      </div>
+
+      <div class="mb-3">
+        <label for="tipo_servico" class="form-label">Tipo de Serviço</label>
+        <select class="form-select" id="tipo_servico" name="tipo_servico" required>
+          <option value="" disabled selected>Selecione um tipo</option>
+          <option value="Calibração">Calibração</option>
+          <option value="Manutenção">Manutenção</option>
+          <option value="Troca de Local">Troca de Local</option>
+          <option value="Fora de Uso">Fora de Uso</option>
+          <option value="Qualificação">Qualificação</option>
+          <option value="Não se aplica">Não se aplica</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="responsavel_execucao" class="form-label">Responsável pela Execução</label>
+        <input type="text" class="form-control" id="responsavel_execucao" name="responsavel_execucao" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="responsavel_analise" class="form-label">Responsável pela Análise</label>
+        <input type="text" class="form-control" id="responsavel_analise" name="responsavel_analise" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="proxima_manutencao" class="form-label">Data da Próxima Manutenção</label>
+        <input type="text" class="form-control" id="proxima_manutencao" name="proxima_manutencao"
+               placeholder="DD/MM/AAAA" required pattern="\d{2}/\d{2}/\d{4}" inputmode="numeric" maxlength="10">
+      </div>
+
+      <div class="mb-3">
+        <label for="local_uso" class="form-label">Local de Uso</label>
+        <input type="text" class="form-control" id="local_uso" name="local_uso" required>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success">Adicionar Histórico</button>
+        <a href="{{ url_for('historico_equipamento', equip_id=equip_id) }}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function aplicarMascaraData(input) {
+      input.addEventListener('input', function(e) {
+        let valor = input.value.replace(/\D/g, '').slice(0, 8); // Apenas números, até 8 dígitos
+        if (valor.length >= 5) {
+          input.value = valor.replace(/(\d{2})(\d{2})(\d{1,4})/, "$1/$2/$3");
+        } else if (valor.length >= 3) {
+          input.value = valor.replace(/(\d{2})(\d{1,2})/, "$1/$2");
+        } else {
+          input.value = valor;
+        }
+      });
+    }
+
+    aplicarMascaraData(document.getElementById('data'));
+    aplicarMascaraData(document.getElementById('proxima_manutencao'));
+  </script>
+</body>
+</html>
